@@ -12,7 +12,7 @@ def test_health_check():
     assert response.json() == {"message": "Dobbe AI Backend is running 🚀"}
 
 def upload_test_file():
-    test_image_path = "uploads/test.dcm"  # Changed path to be relative to backend directory
+    test_image_path = "uploads/test.dcm"  
     with open(test_image_path, "rb") as f:
         files = {"files": ("test.dcm", f, "application/dicom")}
         response = client.post("/api/upload", files=files)
@@ -23,7 +23,7 @@ def upload_test_file():
         return data["files"][0]["image_id"]
 
 def test_upload():
-    test_image_path = "uploads/test.dcm"  # Changed path to be relative to backend directory
+    test_image_path = "uploads/test.dcm"  
     with open(test_image_path, "rb") as f:
         files = {"files": ("test.dcm", f, "application/dicom")}
         response = client.post("/api/upload", files=files)
@@ -55,19 +55,15 @@ def test_generate_report():
 
 def test_invalid_endpoints():
     """Test invalid requests to endpoints"""
-    # Test invalid upload
     response = client.post("/api/upload")
     assert response.status_code == 422  
-    
-    # Test invalid get image
+
     response = client.get("/api/get-image/nonexistent")
     assert response.status_code == 404
     
-    # Test invalid predict
     response = client.post("/api/predict", json={"image_id": "nonexistent"})
     assert response.status_code == 404
     
-    # Test generate report with empty annotations
     response = client.post("/api/generate-report", 
                          json={"image_id": "nonexistent", "annotations": []})
     assert response.status_code == 200
