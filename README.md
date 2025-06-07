@@ -1,3 +1,12 @@
+## Live Preview
+
+**Frontend:**  
+[https://dx-ray.vercel.app](https://dx-ray.vercel.app)
+
+**Backend:**  
+[https://dental-lrcl.onrender.com](https://dental-lrcl.onrender.com)
+
+> **Note:** The live preview uses hosted backend and frontend. The backend may take some time to run due to free tier
 ## Setup
 
 ### Docker Setup 
