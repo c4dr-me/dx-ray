@@ -50,25 +50,3 @@ class FileService:
             print(f"Error converting DICOM to image: {e}")
             return None
 
-    def draw_bounding_boxes(self, image_path: str, predictions: list) -> str:
-        """Draw bounding boxes on the image and return the path."""
-        try:
-            image = cv2.imread(image_path)
-
-            for pred in predictions:
-                x = int(pred["x"])
-                y = int(pred["y"])
-                w = int(pred["width"])
-                h = int(pred["height"])
-                label = f"{pred['class']} ({pred['confidence']:.0%})"
-
-                cv2.rectangle(image, (x, y), (x + w, y + h), (0, 255, 0), 2)
-                cv2.putText(image, label, (x, y - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0), 1)
-
-            annotated_path = image_path.replace(".png", "_annotated.png")
-            cv2.imwrite(annotated_path, image)
-
-            return annotated_path
-        except Exception as e:
-            raise RuntimeError(f"Failed to draw bounding boxes: {str(e)}")
